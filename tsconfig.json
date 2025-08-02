@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "target": "es6",
+    "jsx": "preserve",
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "noEmit": true,
+    "lib": ["dom"],
+    "module": "es6",
+    "moduleResolution": "node"
+  },
+  "include": ["src"],
+  "exclude": ["node_modules"]
+}
