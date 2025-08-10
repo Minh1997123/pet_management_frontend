@@ -1,10 +1,15 @@
-import { createBrowserRouter, RouterProvider } from "react-router";
+import { createBrowserRouter, RouterProvider, Outlet } from "react-router";
 import Navbar from "./component/Navbar/Navbar";
+import FormPage from "./Page/HomePage/HomePage";
 const router = createBrowserRouter([
   {
     path: "/",
-    children: [],
-    element: <Navbar></Navbar>,
+    element: (
+      <>
+        <Outlet></Outlet>
+      </>
+    ),
+    children: [{ index: true, element: <FormPage></FormPage> }],
   },
 ]);
 function App() {

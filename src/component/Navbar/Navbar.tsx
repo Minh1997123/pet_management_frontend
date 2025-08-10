@@ -1,6 +1,6 @@
 import { Outlet } from "react-router";
 import NavbarItem from "./NavbarItem/NavbarItem";
-import styles from "./NavbarItem.module.css";
+import styles from "./Navbar.module.css";
 import {
   faFile,
   faHouse,
@@ -24,7 +24,7 @@ const navBarItems: typeNavBarItems = [
 ];
 const Navbar = function () {
   return (
-    <div className={styles.Navbar}>
+    <div className={styles.navbar}>
       <div>
         {navBarItems.map((item) => {
           return <NavbarItem icon={item.icon} text={item.text}></NavbarItem>;

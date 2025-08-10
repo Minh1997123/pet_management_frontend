@@ -1,0 +1,10 @@
+.navbar__item {
+  display: flex;
+  flex-direction: column;
+  background-color: #7386d5;
+}
+.navbar__item span {
+  color: white;
+}
+
+/* #6D7FCC */
