@@ -4,21 +4,23 @@
   width: 30%;
   margin: auto;
 }
-.form input,
-.form select {
-  width: 100%;
-  box-sizing: border-box;
-}
+
 .form .input__item {
   display: grid;
-  grid-template-columns: repeat(2, 1fr) repeat(2, 0.5fr);
+  grid-template-columns: 0.5fr 1fr 0.5fr 0.6fr;
+  margin: 10px 0;
+  height: 2.5rem;
 }
 
 .label--last label:last-of-type {
   text-align: center;
 }
 
-.input--full > input,
-.input--full > select {
+.input--full  input,
+.input--full  select {
   grid-column: span 3;
+}
+
+.input--half input:first-of-type {
+    width: 60%;
 }

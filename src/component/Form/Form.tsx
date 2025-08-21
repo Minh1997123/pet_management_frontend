@@ -38,7 +38,7 @@ const Form = function () {
           option={["Golden Retriever", "Chihuahua", "Munchkin", "Abyssinian"]}
         ></FormInputItem>
       </div>
-      <div className={`${style.input__item} ${style["label--last"]}`}>
+      <div className={`${style.input__item} ${style["label--last"]} ${style["input--half"]}`}>
         <FormInputItem
           id="weight"
           key="weight"
@@ -54,7 +54,7 @@ const Form = function () {
           placeholder="Input Length"
         ></FormInputItem>
       </div>
-      <div className={`${style.input__item} ${style["label--last"]}`}>
+      <div className={`${style.input__item} ${style["label--last"]} ${style["input--half"]}`}>
         <FormInputItem
           id="color"
           key="color"
