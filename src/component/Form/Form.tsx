@@ -1,9 +1,9 @@
 import FormInputItem, { typeInput } from "./FormItem/FormInputItem";
-
+import style from "./Form.module.css";
 const Form = function () {
   return (
-    <form>
-      <div>
+    <form className={style.form}>
+      <div className={`${style.input__item} ${style["input--full"]}`}>
         <FormInputItem
           id="petId"
           key="petId"
@@ -12,7 +12,7 @@ const Form = function () {
           placeholder="Input ID"
         ></FormInputItem>
       </div>
-      <div>
+      <div className={`${style.input__item} ${style["label--last"]}`}>
         <FormInputItem
           id="petName"
           key="petName"
@@ -28,7 +28,7 @@ const Form = function () {
           placeholder="Input Age"
         ></FormInputItem>
       </div>
-      <div>
+      <div className={`${style.input__item} ${style["input--full"]}`}>
         <FormInputItem
           id="type"
           key="type"
@@ -38,7 +38,7 @@ const Form = function () {
           option={["Golden Retriever", "Chihuahua", "Munchkin", "Abyssinian"]}
         ></FormInputItem>
       </div>
-      <div>
+      <div className={`${style.input__item} ${style["label--last"]}`}>
         <FormInputItem
           id="weight"
           key="weight"
@@ -54,7 +54,7 @@ const Form = function () {
           placeholder="Input Length"
         ></FormInputItem>
       </div>
-      <div>
+      <div className={`${style.input__item} ${style["label--last"]}`}>
         <FormInputItem
           id="color"
           key="color"

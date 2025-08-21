@@ -16,10 +16,14 @@ const FormInputItem = function (props: propsType): React.JSX.Element {
     <>
       <label htmlFor={props.id}>{props.label}</label>
       {props.type === "select" ? (
-        <select>
+        <select id={props.id}>
           <option>Select {props.label}</option>
           {props.option?.map((item) => {
-            return <option value={item}>{item}</option>;
+            return (
+              <option value={item} key={item}>
+                {item}
+              </option>
+            );
           })}
         </select>
       ) : (
