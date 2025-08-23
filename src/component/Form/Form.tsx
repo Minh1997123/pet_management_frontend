@@ -77,19 +77,25 @@ const Form = function () {
       </div>
       <div className={style.checkbox}>
         <div className={style.checkbox__items}>
-          <div>
+          <div className={style.checkbox__item}>
             <input type="checkbox" id="vaccinated" name="vaccinated" />
             <label htmlFor="vaccinated">Vaccinated</label>
           </div>
-          <div>
+          <div className={style.checkbox__item}>
             <input type="checkbox" id="dewormed" name="dewormed" />
             <label htmlFor="dewormed">Dewormed</label>
           </div>
-          <div>
+          <div className={style.checkbox__item}>
             <input type="checkbox" id="sterilized" name="sterilized" />
             <label htmlFor="sterilized">Sterilized</label>
           </div>
         </div>
+      </div>
+      <div className={style.form__button}>
+        <button className={style["form__button--submit"]}>Submit</button>
+        <button className={style["form__button--show"]}>
+          Show Healthy Pet
+        </button>
       </div>
     </form>
   );
