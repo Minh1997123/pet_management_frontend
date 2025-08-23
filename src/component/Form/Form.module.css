@@ -16,11 +16,18 @@
   text-align: center;
 }
 
-.input--full  input,
-.input--full  select {
+.input--full input,
+.input--full select {
   grid-column: span 3;
 }
 
 .input--half input:first-of-type {
-    width: 60%;
+  width: 60%;
+}
+.checkbox {
+  display: grid;
+  grid-template-columns: repeat(3 1fr);
+}
+.checkbox__items {
+  grid-column: 2/4;
 }

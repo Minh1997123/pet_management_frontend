@@ -38,7 +38,9 @@ const Form = function () {
           option={["Golden Retriever", "Chihuahua", "Munchkin", "Abyssinian"]}
         ></FormInputItem>
       </div>
-      <div className={`${style.input__item} ${style["label--last"]} ${style["input--half"]}`}>
+      <div
+        className={`${style.input__item} ${style["label--last"]} ${style["input--half"]}`}
+      >
         <FormInputItem
           id="weight"
           key="weight"
@@ -54,7 +56,9 @@ const Form = function () {
           placeholder="Input Length"
         ></FormInputItem>
       </div>
-      <div className={`${style.input__item} ${style["label--last"]} ${style["input--half"]}`}>
+      <div
+        className={`${style.input__item} ${style["label--last"]} ${style["input--half"]}`}
+      >
         <FormInputItem
           id="color"
           key="color"
@@ -70,6 +74,22 @@ const Form = function () {
           placeholder="Input Breed"
           option={["Dog", "Cat"]}
         ></FormInputItem>
+      </div>
+      <div className={style.checkbox}>
+        <div className={style.checkbox__items}>
+          <div>
+            <input type="checkbox" id="vaccinated" name="vaccinated" />
+            <label htmlFor="vaccinated">Vaccinated</label>
+          </div>
+          <div>
+            <input type="checkbox" id="dewormed" name="dewormed" />
+            <label htmlFor="dewormed">Dewormed</label>
+          </div>
+          <div>
+            <input type="checkbox" id="sterilized" name="sterilized" />
+            <label htmlFor="sterilized">Sterilized</label>
+          </div>
+        </div>
       </div>
     </form>
   );
