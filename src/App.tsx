@@ -1,6 +1,8 @@
 import { createBrowserRouter, RouterProvider, Outlet } from "react-router";
 import Navbar from "./component/Navbar/Navbar";
 import FormPage from "./Page/HomePage/HomePage";
+import store from "./store/store";
+import { Provider } from "react-redux";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -15,7 +17,9 @@ const router = createBrowserRouter([
 function App() {
   return (
     <div className="App">
-      <RouterProvider router={router}></RouterProvider>
+      <Provider store={store}>
+        <RouterProvider router={router}></RouterProvider>
+      </Provider>
     </div>
   );
 }

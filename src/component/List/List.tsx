@@ -1,3 +1,4 @@
+import ListItem from "./ListItem/ListItem";
 const List = function () {
   return (
     <table>
@@ -14,8 +15,9 @@ const List = function () {
         <th>Dewormed</th>
         <th>Sterilized</th>
         <th>Date Add</th>
-        <th>Action</th>
+        <th>Action</th>✔
       </tr>
+      {/* <ListItem ></ListItem> */}
     </table>
   );
 };
