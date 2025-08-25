@@ -1,4 +1,4 @@
-import style from "./FormInputItem.module.css"
+import style from "./FormInputItem.module.css";
 export enum typeInput {
   text = "text",
   color = "color",
@@ -15,9 +15,11 @@ type propsType = {
 const FormInputItem = function (props: propsType): React.JSX.Element {
   return (
     <>
-      <label htmlFor={props.id} className={style.label}>{props.label}</label>
+      <label htmlFor={props.id} className={style.label}>
+        {props.label}
+      </label>
       {props.type === "select" ? (
-        <select id={props.id} className={style.item}>
+        <select id={props.id} className={style.item} required>
           <option>Select {props.label}</option>
           {props.option?.map((item) => {
             return (
@@ -35,6 +37,7 @@ const FormInputItem = function (props: propsType): React.JSX.Element {
           name={props.id}
           placeholder={props.placeholder}
           min={0}
+          required
         />
       )}
     </>

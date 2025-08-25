@@ -1,12 +1,18 @@
 import FormInputItem, { typeInput } from "./FormItem/FormInputItem";
 import style from "./Form.module.css";
 const Form = function () {
+  const submitHandler: (event: any) => void = function (event) {
+    event.preventDefault();
+    const fd = new FormData(event.target);
+    const data = Object.fromEntries(fd.entries());
+    console.log(data);
+  };
   return (
-    <form className={style.form}>
+    <form className={style.form} onSubmit={submitHandler}>
       <div className={`${style.input__item} ${style["input--full"]}`}>
         <FormInputItem
-          id="petId"
-          key="petId"
+          id="id"
+          key="id"
           type={typeInput.text}
           label="Pet ID"
           placeholder="Input ID"
@@ -14,8 +20,8 @@ const Form = function () {
       </div>
       <div className={`${style.input__item} ${style["label--last"]}`}>
         <FormInputItem
-          id="petName"
-          key="petName"
+          id="name"
+          key="name"
           type={typeInput.text}
           label="Pet Name"
           placeholder="Input Name"
@@ -23,7 +29,7 @@ const Form = function () {
         <FormInputItem
           id="age"
           key="age"
-          type={typeInput.text}
+          type={typeInput.number}
           label="Age"
           placeholder="Input Age"
         ></FormInputItem>
@@ -92,7 +98,9 @@ const Form = function () {
         </div>
       </div>
       <div className={style.form__button}>
-        <button className={style["form__button--submit"]}>Submit</button>
+        <button className={style["form__button--submit"]} type="submit">
+          Submit
+        </button>
         <button className={style["form__button--show"]}>
           Show Healthy Pet
         </button>
