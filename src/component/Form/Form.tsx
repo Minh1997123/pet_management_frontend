@@ -7,7 +7,7 @@ import { typePet } from "../../store/type";
 const Form = function () {
   const dispatch = useDispatch();
   // ham validate form
-  const valiDateHandler = function (petInfo: typePet) {
+  const valiDateHandler: (petInfo: typePet) => boolean = function (petInfo) {
     let key: keyof typePet;
     for (key in petInfo) {
       if (key === "sterilized" || key === "dewormed" || key === "vaccinated") {
@@ -23,31 +23,37 @@ const Form = function () {
         }
         return false;
       }
-      console.log("dsfsdf");
-      const isCheckAge = petInfo.age < 1 && petInfo.age > 15;
-      const isCheckWeight = petInfo.weight < 1 && petInfo.weight > 15;
-      const isCheckLength = petInfo.length < 1 && petInfo.length > 100;
-      if (isCheckAge) {
-        alert(`Age must be between 1 and 15!`);
-      }
-      if (isCheckLength) {
-        alert(`Length must be between 1 and 100!`);
-      }
-      if (isCheckWeight) {
-        alert(`Weight must be between 1 and 15!`);
-      }
     }
+    const isCheckAge = petInfo.age < 1 && petInfo.age > 15;
+    const isCheckWeight = petInfo.weight < 1 && petInfo.weight > 15;
+    const isCheckLength = petInfo.length < 1 && petInfo.length > 100;
+    if (isCheckAge) {
+      alert(`Age must be between 1 and 15!`);
+      return false;
+    }
+    if (isCheckLength) {
+      alert(`Length must be between 1 and 100!`);
+      return false;
+    }
+    if (isCheckWeight) {
+      alert(`Weight must be between 1 and 15!`);
+      return false;
+    }
+    return true;
   };
   // ham them thong tin pet vao danh sach
-  const addPetHandler = function (petInfo: typePet) {
-    console.log(valiDateHandler(petInfo));
-    dispatch(addPet(petInfo));
+  const addPetHandler = function (petInfo: typePet, element: HTMLFormElement) {
+    if (valiDateHandler(petInfo)) {
+      dispatch(addPet(petInfo));
+      element.reset();
+    }
   };
 
   // lay gia thong tin tu form va them vao danh sach
-  const submitHandler: (event: any) => void = function (event) {
+  const submitHandler: (event: React.FormEvent) => void = function (event) {
     event.preventDefault();
-    const fd = new FormData(event.target);
+    const form = event.target as HTMLFormElement;
+    const fd = new FormData(form);
     const data = Object.fromEntries(fd.entries());
     const newData = {
       id: Math.random().toString(),
@@ -63,8 +69,7 @@ const Form = function () {
       sterilized: fd.has("sterilized"),
       dateAdd: new Date().toISOString(),
     };
-    addPetHandler(newData);
-    event.target.reset();
+    addPetHandler(newData, form);
   };
   return (
     <form className={style.form} onSubmit={submitHandler}>
