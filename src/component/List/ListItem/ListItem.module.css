@@ -1,0 +1,40 @@
+.list__item {
+  height: 4rem;
+  border-bottom: 1px solid #e7eaed;
+}
+.list__item--gray {
+  background-color: #ededed;
+}
+.list__item td {
+  text-align: center;
+  vertical-align: middle;
+}
+.item--square {
+  height: 1.2rem;
+  aspect-ratio: 0.7;
+  margin: auto;
+}
+.circle {
+  height: 1rem;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  font-size: 0.5rem;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+}
+.circle--red {
+  background-color: red;
+}
+.circle--green {
+  background-color: green;
+}
+.button--delete {
+  background-color: red;
+  height: 2rem;
+  color: white;
+  border: none;
+  border-radius: 5px;
+}

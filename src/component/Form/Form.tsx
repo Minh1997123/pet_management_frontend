@@ -1,23 +1,73 @@
 import FormInputItem, { typeInput } from "./FormItem/FormInputItem";
+import { useDispatch } from "react-redux";
+import { addPet } from "../../store/slice";
 import style from "./Form.module.css";
+import { typePet } from "../../store/type";
+
 const Form = function () {
+  const dispatch = useDispatch();
+  // ham validate form
+  const valiDateHandler = function (petInfo: typePet) {
+    let key: keyof typePet;
+    for (key in petInfo) {
+      if (key === "sterilized" || key === "dewormed" || key === "vaccinated") {
+        continue;
+      }
+      if (!petInfo[key]) {
+        if (key === "type") {
+          alert("Please select Type!");
+        } else if (key === "breed") {
+          alert("Please select Breed!");
+        } else {
+          alert(`Please input for ${key}`);
+        }
+        return false;
+      }
+      console.log("dsfsdf");
+      const isCheckAge = petInfo.age < 1 && petInfo.age > 15;
+      const isCheckWeight = petInfo.weight < 1 && petInfo.weight > 15;
+      const isCheckLength = petInfo.length < 1 && petInfo.length > 100;
+      if (isCheckAge) {
+        alert(`Age must be between 1 and 15!`);
+      }
+      if (isCheckLength) {
+        alert(`Length must be between 1 and 100!`);
+      }
+      if (isCheckWeight) {
+        alert(`Weight must be between 1 and 15!`);
+      }
+    }
+  };
+  // ham them thong tin pet vao danh sach
+  const addPetHandler = function (petInfo: typePet) {
+    console.log(valiDateHandler(petInfo));
+    dispatch(addPet(petInfo));
+  };
+
+  // lay gia thong tin tu form va them vao danh sach
   const submitHandler: (event: any) => void = function (event) {
     event.preventDefault();
     const fd = new FormData(event.target);
     const data = Object.fromEntries(fd.entries());
-    console.log(data);
+    const newData = {
+      id: Math.random().toString(),
+      name: String(data.name),
+      age: Number(data.age),
+      weight: Number(data.weight),
+      length: Number(data.length),
+      breed: String(data.breed),
+      type: String(data.type),
+      color: String(data.color),
+      vaccinated: fd.has("vaccinated"),
+      dewormed: fd.has("dewormed"),
+      sterilized: fd.has("sterilized"),
+      dateAdd: new Date().toISOString(),
+    };
+    addPetHandler(newData);
+    event.target.reset();
   };
   return (
     <form className={style.form} onSubmit={submitHandler}>
-      <div className={`${style.input__item} ${style["input--full"]}`}>
-        <FormInputItem
-          id="id"
-          key="id"
-          type={typeInput.text}
-          label="Pet ID"
-          placeholder="Input ID"
-        ></FormInputItem>
-      </div>
       <div className={`${style.input__item} ${style["label--last"]}`}>
         <FormInputItem
           id="name"
@@ -32,6 +82,8 @@ const Form = function () {
           type={typeInput.number}
           label="Age"
           placeholder="Input Age"
+          defaultValue={1}
+          max={15}
         ></FormInputItem>
       </div>
       <div className={`${style.input__item} ${style["input--full"]}`}>
@@ -39,9 +91,9 @@ const Form = function () {
           id="type"
           key="type"
           type={typeInput.select}
-          label="Type"
-          placeholder="Select type"
-          option={["Golden Retriever", "Chihuahua", "Munchkin", "Abyssinian"]}
+          label="Breed"
+          placeholder="Input Breed"
+          option={["Dog", "Cat"]}
         ></FormInputItem>
       </div>
       <div
@@ -53,6 +105,8 @@ const Form = function () {
           type={typeInput.number}
           label="Weight"
           placeholder="Input Weight"
+          max={15}
+          defaultValue={1}
         ></FormInputItem>
         <FormInputItem
           id="length"
@@ -60,6 +114,8 @@ const Form = function () {
           type={typeInput.number}
           label="Length"
           placeholder="Input Length"
+          max={100}
+          defaultValue={1}
         ></FormInputItem>
       </div>
       <div
@@ -76,9 +132,9 @@ const Form = function () {
           id="breed"
           key="breed"
           type={typeInput.select}
-          label="Breed"
-          placeholder="Input Breed"
-          option={["Dog", "Cat"]}
+          label="Type"
+          placeholder="Select type"
+          option={["Golden Retriever", "Chihuahua", "Munchkin", "Abyssinian"]}
         ></FormInputItem>
       </div>
       <div className={style.checkbox}>

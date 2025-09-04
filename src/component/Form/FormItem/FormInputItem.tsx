@@ -11,6 +11,8 @@ type propsType = {
   label: string;
   placeholder: string;
   option?: string[];
+  max?: number;
+  defaultValue?: number | string;
 };
 const FormInputItem = function (props: propsType): React.JSX.Element {
   return (
@@ -19,8 +21,13 @@ const FormInputItem = function (props: propsType): React.JSX.Element {
         {props.label}
       </label>
       {props.type === "select" ? (
-        <select id={props.id} className={style.item} required>
-          <option>Select {props.label}</option>
+        <select
+          id={props.id}
+          name={props.id}
+          className={style.item}
+          // required
+        >
+          <option value={""}>Select {props.label}</option>
           {props.option?.map((item) => {
             return (
               <option value={item} key={item}>
@@ -36,8 +43,10 @@ const FormInputItem = function (props: propsType): React.JSX.Element {
           id={props.id}
           name={props.id}
           placeholder={props.placeholder}
-          min={0}
-          required
+          min={1}
+          max={props.max}
+          defaultValue={props.defaultValue}
+          // required
         />
       )}
     </>

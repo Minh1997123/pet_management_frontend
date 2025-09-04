@@ -1,42 +1,68 @@
-type propsType = {
-  id: string;
-  name: string;
-  age: number;
-  type: string;
-  weight: number;
-  length: number;
-  breed: string;
-  color: string;
-  vaccinated: boolean;
-  dewormed: boolean;
-  sterilized: boolean;
-  dateAdd: string;
+import style from "./ListItem.module.css";
+import { typePet } from "../../../store/type";
+type propsType = typePet & {
+  index: number;
 };
 
 const ListItem = function (props: propsType) {
+  // kiem tra xem da chon checkbox chua
   const checkHandler = function (value: boolean) {
     if (value) {
-      return <td>✔</td>;
+      return (
+        <td>
+          <div className={`${style.circle} ${style["circle--green"]}`}>✔</div>
+        </td>
+      );
     } else {
-      return <td>X</td>;
+      return (
+        <td>
+          <div className={`${style.circle} ${style["circle--red"]}`}>X</div>
+        </td>
+      );
+    }
+  };
+  // lay ngay theo mui gio cua may tinh
+  const getDateLocal = function (date: string) {
+    const newDate = new Date(date);
+    return newDate.toLocaleDateString();
+  };
+
+  // ham xoa thu cung
+  const deletePetHandler: () => void = function () {
+    const isDelete = window.confirm("Are you sure?");
+    if (isDelete) {
+      console.log(props.id);
     }
   };
   return (
-    <tr>
-      <td>{props.id}</td>
+    <tr
+      className={`${style.list__item} ${
+        props.index % 2 === 0 && style["list__item--gray"]
+      }`}
+    >
+      <td>
+        <strong>{props.id}</strong>
+      </td>
       <td>{props.name}</td>
       <td>{props.age}</td>
-      <td>{props.type}</td>
-      <td>{props.weight}</td>
-      <td>{props.length} kg</td>
-      <td>{props.length} cm</td>
       <td>{props.breed}</td>
+      <td>{props.weight} kg</td>
+      <td>{props.length} cm</td>
+      <td>{props.type}</td>
+      <td>
+        <div
+          style={{ backgroundColor: `${props.color}` }}
+          className={style["item--square"]}
+        ></div>
+      </td>
       {checkHandler(props.vaccinated)}
       {checkHandler(props.dewormed)}
       {checkHandler(props.sterilized)}
-      <td></td>
+      <td>{getDateLocal(props.dateAdd)}</td>
       <td>
-        <button>Delete</button>
+        <button className={style["button--delete"]} onClick={deletePetHandler}>
+          Delete
+        </button>
       </td>
     </tr>
   );

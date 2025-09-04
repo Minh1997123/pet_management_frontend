@@ -1,0 +1,11 @@
+.home__container {
+  padding: 10px 20px;
+  background-color: #fafafa;
+  min-height: 100vh;
+}
+.home__container header {
+  background-color: #f8f9fa;
+}
+.home__container__list {
+  padding: 0 10%;
+}

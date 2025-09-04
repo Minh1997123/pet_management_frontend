@@ -29,5 +29,5 @@ const listPetSlice = createSlice({
   },
 });
 
-export const {} = listPetSlice.actions;
+export const { addPet } = listPetSlice.actions;
 export default listPetSlice.reducer;
