@@ -5,7 +5,7 @@
     "strict": true,
     "forceConsistentCasingInFileNames": true,
     "noEmit": true,
-    "lib": ["dom"],
+    "lib": ["dom", "dom.iterable"],
     "module": "es6",
     "moduleResolution": "node"
   },
