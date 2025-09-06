@@ -1,11 +1,17 @@
 import FormInputItem, { typeInput } from "./FormItem/FormInputItem";
-import { useDispatch } from "react-redux";
-import { addPet } from "../../store/slice";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  addPet,
+  showPetHealthy as showPetHealthyAction,
+} from "../../store/slice";
 import style from "./Form.module.css";
-import { typePet } from "../../store/type";
+import { typePet, typeReduxState } from "../../store/type";
 
 const Form = function () {
   const dispatch = useDispatch();
+  const showPetHealthy = useSelector(
+    (state: typeReduxState) => state.showPetHealthy
+  );
   // ham validate form
   const valiDateHandler: (petInfo: typePet) => boolean = function (petInfo) {
     let key: keyof typePet;
@@ -71,6 +77,10 @@ const Form = function () {
     };
     addPetHandler(newData, form);
   };
+  // ham show pet khoe manh
+  const showPetHealthyHandler = function () {
+    dispatch(showPetHealthyAction());
+  };
   return (
     <form className={style.form} onSubmit={submitHandler}>
       <div className={`${style.input__item} ${style["label--last"]}`}>
@@ -96,8 +106,8 @@ const Form = function () {
           id="type"
           key="type"
           type={typeInput.select}
-          label="Breed"
-          placeholder="Input Breed"
+          label="Type"
+          placeholder="Input type"
           option={["Dog", "Cat"]}
         ></FormInputItem>
       </div>
@@ -131,14 +141,15 @@ const Form = function () {
           key="color"
           type={typeInput.color}
           label="Color"
+          defaultValue={"#ff0000"}
           placeholder="Input Color"
         ></FormInputItem>
         <FormInputItem
           id="breed"
           key="breed"
           type={typeInput.select}
-          label="Type"
-          placeholder="Select type"
+          label="Breed"
+          placeholder="Select breed"
           option={["Golden Retriever", "Chihuahua", "Munchkin", "Abyssinian"]}
         ></FormInputItem>
       </div>
@@ -162,8 +173,12 @@ const Form = function () {
         <button className={style["form__button--submit"]} type="submit">
           Submit
         </button>
-        <button className={style["form__button--show"]}>
-          Show Healthy Pet
+        <button
+          className={style["form__button--show"]}
+          type="button"
+          onClick={showPetHealthyHandler}
+        >
+          {showPetHealthy ? "Show Healthy Pet" : "Show All Pet"}
         </button>
       </div>
     </form>
