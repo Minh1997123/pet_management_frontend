@@ -56,14 +56,15 @@
   margin-right: 10px;
   border: none;
   border-radius: 3px;
+  transition: 1s;
+}
+.form__button button:hover {
+  transform: scale(1.1);
 }
 .form__button--submit {
-  background-color: blue;
+  background-color: #0e6efe;
   color: white;
 }
 .form__button--show {
-  background-color: yellow;
-}
-
-.test {
+  background-color: #ffc124;
 }

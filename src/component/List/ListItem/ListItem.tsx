@@ -34,6 +34,12 @@ const ListItem = function (props: propsType) {
       console.log(props.id);
     }
   };
+  // ham tinh BMI cho thu cung
+  const calculateBMI = function (type: string) {
+    const num = type === "Dog" ? 703 : 886;
+    const BMI = (props.weight * num) / props.length ** 2;
+    return BMI.toFixed(2);
+  };
   return (
     <tr
       className={`${style.list__item} ${
@@ -45,10 +51,10 @@ const ListItem = function (props: propsType) {
       </td>
       <td>{props.name}</td>
       <td>{props.age}</td>
-      <td>{props.breed}</td>
+      <td>{props.type}</td>
       <td>{props.weight} kg</td>
       <td>{props.length} cm</td>
-      <td>{props.type}</td>
+      <td>{props.breed}</td>
       <td>
         <div
           style={{ backgroundColor: `${props.color}` }}
@@ -58,6 +64,7 @@ const ListItem = function (props: propsType) {
       {checkHandler(props.vaccinated)}
       {checkHandler(props.dewormed)}
       {checkHandler(props.sterilized)}
+      <td>{calculateBMI(props.type)}</td>
       <td>{getDateLocal(props.dateAdd)}</td>
       <td>
         <button className={style["button--delete"]} onClick={deletePetHandler}>

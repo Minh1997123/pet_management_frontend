@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-type typeValue = {
+type typeListValue = {
   id: string;
   name: string;
   age: number;
@@ -16,18 +16,33 @@ type typeValue = {
 };
 type typeActions = {
   type: string;
-  payload: typeValue;
+  payload: typeListValue;
 };
-const defaultValue: typeValue[] = [];
+const defaultListValue: typeListValue[] = [];
+const defaultShowHealthy: boolean = true;
 const listPetSlice = createSlice({
   name: "listPet",
-  initialState: defaultValue,
+  initialState: defaultListValue,
   reducers: {
     addPet: (state, actions: typeActions) => {
       return [...state, actions.payload];
     },
   },
 });
+const showPetHealthySlice = createSlice({
+  name: "showPetHealthy",
+  initialState: defaultShowHealthy,
+  reducers: {
+    showPetHealthy: (state) => {
+      return !state;
+    },
+  },
+});
 
+// list pet
 export const { addPet } = listPetSlice.actions;
-export default listPetSlice.reducer;
+export const listPetReducer = listPetSlice.reducer;
+
+// show pet healthy
+export const { showPetHealthy } = showPetHealthySlice.actions;
+export const showPetHealthyReducer = showPetHealthySlice.reducer;

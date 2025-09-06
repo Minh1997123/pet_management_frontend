@@ -17,4 +17,5 @@ export type typePet = {
 
 export type typeReduxState = {
   listPet: typePet[];
+  showPetHealthy: boolean;
 };

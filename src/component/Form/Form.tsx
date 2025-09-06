@@ -1,13 +1,19 @@
 import FormInputItem, { typeInput } from "./FormItem/FormInputItem";
-import { useDispatch } from "react-redux";
-import { addPet } from "../../store/slice";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  addPet,
+  showPetHealthy as showPetHealthyAction,
+} from "../../store/slice";
 import style from "./Form.module.css";
-import { typePet } from "../../store/type";
+import { typePet, typeReduxState } from "../../store/type";
 
 const Form = function () {
   const dispatch = useDispatch();
+  const showPetHealthy = useSelector(
+    (state: typeReduxState) => state.showPetHealthy
+  );
   // ham validate form
-  const valiDateHandler = function (petInfo: typePet) {
+  const valiDateHandler: (petInfo: typePet) => boolean = function (petInfo) {
     let key: keyof typePet;
     for (key in petInfo) {
       if (key === "sterilized" || key === "dewormed" || key === "vaccinated") {
@@ -23,31 +29,37 @@ const Form = function () {
         }
         return false;
       }
-      console.log("dsfsdf");
-      const isCheckAge = petInfo.age < 1 && petInfo.age > 15;
-      const isCheckWeight = petInfo.weight < 1 && petInfo.weight > 15;
-      const isCheckLength = petInfo.length < 1 && petInfo.length > 100;
-      if (isCheckAge) {
-        alert(`Age must be between 1 and 15!`);
-      }
-      if (isCheckLength) {
-        alert(`Length must be between 1 and 100!`);
-      }
-      if (isCheckWeight) {
-        alert(`Weight must be between 1 and 15!`);
-      }
     }
+    const isCheckAge = petInfo.age < 1 && petInfo.age > 15;
+    const isCheckWeight = petInfo.weight < 1 && petInfo.weight > 15;
+    const isCheckLength = petInfo.length < 1 && petInfo.length > 100;
+    if (isCheckAge) {
+      alert(`Age must be between 1 and 15!`);
+      return false;
+    }
+    if (isCheckLength) {
+      alert(`Length must be between 1 and 100!`);
+      return false;
+    }
+    if (isCheckWeight) {
+      alert(`Weight must be between 1 and 15!`);
+      return false;
+    }
+    return true;
   };
   // ham them thong tin pet vao danh sach
-  const addPetHandler = function (petInfo: typePet) {
-    console.log(valiDateHandler(petInfo));
-    dispatch(addPet(petInfo));
+  const addPetHandler = function (petInfo: typePet, element: HTMLFormElement) {
+    if (valiDateHandler(petInfo)) {
+      dispatch(addPet(petInfo));
+      element.reset();
+    }
   };
 
   // lay gia thong tin tu form va them vao danh sach
-  const submitHandler: (event: any) => void = function (event) {
+  const submitHandler: (event: React.FormEvent) => void = function (event) {
     event.preventDefault();
-    const fd = new FormData(event.target);
+    const form = event.target as HTMLFormElement;
+    const fd = new FormData(form);
     const data = Object.fromEntries(fd.entries());
     const newData = {
       id: Math.random().toString(),
@@ -63,8 +75,11 @@ const Form = function () {
       sterilized: fd.has("sterilized"),
       dateAdd: new Date().toISOString(),
     };
-    addPetHandler(newData);
-    event.target.reset();
+    addPetHandler(newData, form);
+  };
+  // ham show pet khoe manh
+  const showPetHealthyHandler = function () {
+    dispatch(showPetHealthyAction());
   };
   return (
     <form className={style.form} onSubmit={submitHandler}>
@@ -91,8 +106,8 @@ const Form = function () {
           id="type"
           key="type"
           type={typeInput.select}
-          label="Breed"
-          placeholder="Input Breed"
+          label="Type"
+          placeholder="Input type"
           option={["Dog", "Cat"]}
         ></FormInputItem>
       </div>
@@ -126,14 +141,15 @@ const Form = function () {
           key="color"
           type={typeInput.color}
           label="Color"
+          defaultValue={"#ff0000"}
           placeholder="Input Color"
         ></FormInputItem>
         <FormInputItem
           id="breed"
           key="breed"
           type={typeInput.select}
-          label="Type"
-          placeholder="Select type"
+          label="Breed"
+          placeholder="Select breed"
           option={["Golden Retriever", "Chihuahua", "Munchkin", "Abyssinian"]}
         ></FormInputItem>
       </div>
@@ -157,8 +173,12 @@ const Form = function () {
         <button className={style["form__button--submit"]} type="submit">
           Submit
         </button>
-        <button className={style["form__button--show"]}>
-          Show Healthy Pet
+        <button
+          className={style["form__button--show"]}
+          type="button"
+          onClick={showPetHealthyHandler}
+        >
+          {showPetHealthy ? "Show Healthy Pet" : "Show All Pet"}
         </button>
       </div>
     </form>

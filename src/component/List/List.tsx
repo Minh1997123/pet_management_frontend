@@ -2,9 +2,25 @@ import style from "./List.module.css";
 import { useSelector } from "react-redux";
 import ListItem from "./ListItem/ListItem";
 import { typeReduxState } from "../../store/type";
-
+import { useState, useEffect } from "react";
 const List = function () {
-  const listPets = useSelector((state: typeReduxState) => state.listPet);
+  const reduxState = useSelector((state: typeReduxState) => state);
+  const listPets = reduxState.listPet;
+  const showPetHealthy = reduxState.showPetHealthy;
+  const [newListPets, setMewListPets] = useState(listPets);
+  // hien thi list pet healthy
+  useEffect(
+    function () {
+      if (!showPetHealthy) {
+        const healThyPets = listPets.filter((pet) => {
+          return pet.dewormed && pet.sterilized && pet.vaccinated;
+        });
+        return setMewListPets(healThyPets);
+      }
+      return setMewListPets(listPets);
+    },
+    [showPetHealthy, listPets]
+  );
   return (
     <table className={style.list}>
       <thead className={style.list__head}>
@@ -20,12 +36,13 @@ const List = function () {
           <th>Vaccinated</th>
           <th>Dewormed</th>
           <th>Sterilized</th>
+          <th>BMI</th>
           <th>Date Add</th>
           <th>Action</th>
         </tr>
       </thead>
       <tbody className={style.list__body}>
-        {listPets.map(
+        {newListPets.map(
           (
             {
               id,
