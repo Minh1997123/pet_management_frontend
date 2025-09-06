@@ -13,9 +13,7 @@ const List = function () {
     function () {
       if (!showPetHealthy) {
         const healThyPets = listPets.filter((pet) => {
-          if (pet.dewormed && pet.sterilized && pet.vaccinated) {
-            return pet;
-          }
+          return pet.dewormed && pet.sterilized && pet.vaccinated;
         });
         return setMewListPets(healThyPets);
       }
