@@ -1,10 +1,13 @@
 import style from "./ListItem.module.css";
 import { typePet } from "../../../store/type";
+import { useDispatch } from "react-redux";
+import { deletePet as deletePetRedux } from "../../../store/slice";
 type propsType = typePet & {
   index: number;
 };
 
 const ListItem = function (props: propsType) {
+  const dispatch = useDispatch();
   // kiem tra xem da chon checkbox chua
   const checkHandler = function (value: boolean) {
     if (value) {
@@ -26,12 +29,27 @@ const ListItem = function (props: propsType) {
     const newDate = new Date(date);
     return newDate.toLocaleDateString();
   };
+  // ham xoa pet tren database
 
+  const deletePet = async function () {
+    const res = await fetch(
+      `${process.env.REACT_APP_API_URL}pet/${props.id}` ||
+        `http://localhost:5000/pet/${props.id}`,
+      {
+        method: "DELETE",
+      }
+    );
+    return res;
+  };
   // ham xoa thu cung
-  const deletePetHandler: () => void = function () {
+  const deletePetHandler: () => void = async function () {
     const isDelete = window.confirm("Are you sure?");
     if (isDelete) {
-      console.log(props.id);
+      const res = await deletePet();
+      if (res.status !== 200) {
+        return;
+      }
+      dispatch(deletePetRedux(props.id as string));
     }
   };
   // ham tinh BMI cho thu cung

@@ -1,7 +1,7 @@
 export type typeFormInputItemProps = {};
 
 export type typePet = {
-  id: string;
+  id?: string;
   name: string;
   age: number;
   type: string;
@@ -18,4 +18,8 @@ export type typePet = {
 export type typeReduxState = {
   listPet: typePet[];
   showPetHealthy: boolean;
+};
+
+export type typeDataSocketIO = {
+  listPet: typePet[];
 };

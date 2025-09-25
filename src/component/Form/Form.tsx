@@ -2,16 +2,34 @@ import FormInputItem, { typeInput } from "./FormItem/FormInputItem";
 import { useDispatch, useSelector } from "react-redux";
 import {
   addPet,
+  addListPet,
   showPetHealthy as showPetHealthyAction,
 } from "../../store/slice";
 import style from "./Form.module.css";
 import { typePet, typeReduxState } from "../../store/type";
-
+import { useEffect } from "react";
 const Form = function () {
   const dispatch = useDispatch();
   const showPetHealthy = useSelector(
     (state: typeReduxState) => state.showPetHealthy
   );
+  // ham lay list pet
+  useEffect(function () {
+    const getPet = async function () {
+      const res = await fetch(
+        `${process.env.REACT_APP_API_URL}pet` || "http://localhost:5000/pet"
+      );
+      const resData: typePet[] = await res.json();
+      const newListPet: typePet[] = resData.map((pet: any) => {
+        return {
+          ...pet,
+          id: pet._id,
+        };
+      });
+      dispatch(addListPet(newListPet));
+    };
+    getPet();
+  }, []);
   // ham validate form
   const valiDateHandler: (petInfo: typePet) => boolean = function (petInfo) {
     let key: keyof typePet;
@@ -47,12 +65,62 @@ const Form = function () {
     }
     return true;
   };
+  // ham gui thong tin pet len backend
+  const postPet = async function (petInfo: typePet) {
+    const res = await fetch(
+      `${process.env.REACT_APP_API_URL}pet` || "http://localhost:5000/pet",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(petInfo),
+      }
+    );
+    return res;
+  };
   // ham them thong tin pet vao danh sach
-  const addPetHandler = function (petInfo: typePet, element: HTMLFormElement) {
-    if (valiDateHandler(petInfo)) {
-      dispatch(addPet(petInfo));
-      element.reset();
+  const addPetHandler = async function (
+    petInfo: typePet,
+    element: HTMLFormElement
+  ) {
+    if (!valiDateHandler(petInfo)) {
+      return;
     }
+    const res = await postPet(petInfo);
+    if (res.status !== 200) {
+      return;
+    }
+    const {
+      age,
+      breed,
+      color,
+      dateAdd,
+      dewormed,
+      length,
+      name,
+      sterilized,
+      type,
+      vaccinated,
+      weight,
+      _id,
+    } = await res.json();
+    const newPet: typePet = {
+      age,
+      breed,
+      color,
+      dateAdd,
+      dewormed,
+      length,
+      name,
+      sterilized,
+      type,
+      vaccinated,
+      weight,
+      id: _id,
+    };
+    dispatch(addPet(newPet));
+    element.reset();
   };
 
   // lay gia thong tin tu form va them vao danh sach
@@ -62,7 +130,6 @@ const Form = function () {
     const fd = new FormData(form);
     const data = Object.fromEntries(fd.entries());
     const newData = {
-      id: Math.random().toString(),
       name: String(data.name),
       age: Number(data.age),
       weight: Number(data.weight),
