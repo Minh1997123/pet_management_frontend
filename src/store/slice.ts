@@ -1,31 +1,38 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { typePet } from "./type";
 
-type typeListValue = {
-  id: string;
-  name: string;
-  age: number;
+type typeActionsAddPet = {
   type: string;
-  weight: number;
-  length: number;
-  breed: string;
-  color: string;
-  vaccinated: boolean;
-  dewormed: boolean;
-  sterilized: boolean;
-  dateAdd: string;
+  payload: typePet;
 };
-type typeActions = {
+type typeActionsAddListPet = {
   type: string;
-  payload: typeListValue;
+  payload: typePet[];
 };
-const defaultListValue: typeListValue[] = [];
+type typeActionsDeletePet = {
+  type: string;
+  payload: string;
+};
+const defaultListValue: typePet[] = [];
 const defaultShowHealthy: boolean = true;
 const listPetSlice = createSlice({
   name: "listPet",
   initialState: defaultListValue,
   reducers: {
-    addPet: (state, actions: typeActions) => {
+    // them toan bo danh sach thu cung
+    addListPet: (state, actions: typeActionsAddListPet) => {
+      return actions.payload;
+    },
+    // them tung thu cung
+    addPet: (state, actions: typeActionsAddPet) => {
       return [...state, actions.payload];
+    },
+    // xoa thu cung
+    deletePet: (state, actions: typeActionsDeletePet) => {
+      const newListPet = state.filter((pet) => {
+        return pet.id !== actions.payload;
+      });
+      return newListPet;
     },
   },
 });
@@ -40,7 +47,7 @@ const showPetHealthySlice = createSlice({
 });
 
 // list pet
-export const { addPet } = listPetSlice.actions;
+export const { addPet, addListPet, deletePet } = listPetSlice.actions;
 export const listPetReducer = listPetSlice.reducer;
 
 // show pet healthy

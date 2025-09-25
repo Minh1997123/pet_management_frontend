@@ -1,13 +1,29 @@
 import style from "./List.module.css";
 import { useSelector } from "react-redux";
 import ListItem from "./ListItem/ListItem";
-import { typeReduxState } from "../../store/type";
+import { typeReduxState, typeDataSocketIO } from "../../store/type";
 import { useState, useEffect } from "react";
+import openSocket from "socket.io-client";
+
 const List = function () {
-  const reduxState = useSelector((state: typeReduxState) => state);
-  const listPets = reduxState.listPet;
-  const showPetHealthy = reduxState.showPetHealthy;
+  const listPets = useSelector((state: typeReduxState) => state.listPet);
+  const showPetHealthy = useSelector(
+    (state: typeReduxState) => state.showPetHealthy
+  );
   const [newListPets, setMewListPets] = useState(listPets);
+  // effect ket noi voi socketIO
+  useEffect(function () {
+    const socket = openSocket(
+      process.env.REACT_APP_API_URL || "http://localhost:5000"
+    );
+    // gui su kien listPet len server
+    socket.on("listPet", (data: typeDataSocketIO) => {
+      const newListPetSocket = data.listPet.map((pet: any) => {
+        return { ...pet, id: pet._id };
+      });
+      setMewListPets(newListPetSocket);
+    });
+  }, []);
   // hien thi list pet healthy
   useEffect(
     function () {
