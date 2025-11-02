@@ -1,0 +1,14 @@
+.form {
+  width: 30%;
+}
+.item {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 2fr 5fr;
+  margin-bottom: 20px;
+}
+
+.form button {
+  background-color: #0e6efe;
+  color: white;
+}

@@ -5,4 +5,5 @@
 .list__head {
   border-bottom: 2px solid #212529;
   height: 3rem;
+  text-align: center;
 }

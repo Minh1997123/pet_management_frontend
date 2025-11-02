@@ -1,0 +1,26 @@
+.cart {
+  background-color: #fafafa;
+  min-height: 100vh;
+}
+
+.cart .title {
+  color: black;
+  max-width: 100%;
+  border-radius: 5px;
+  margin: 10px;
+  margin-bottom: 40px;
+}
+
+.cart .title h3 {
+  padding: 10px;
+  height: 4rem;
+  display: flex;
+  align-items: center;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 20px;
+}

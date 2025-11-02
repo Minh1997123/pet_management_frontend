@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { typePet } from "./type";
+import { typePet, typeEditMode } from "./type";
 
 type typeActionsAddPet = {
   type: string;
@@ -13,8 +13,17 @@ type typeActionsDeletePet = {
   type: string;
   payload: string;
 };
+
+type typeActionsEditMode = {
+  type: string;
+  payload: boolean;
+};
 const defaultListValue: typePet[] = [];
 const defaultShowHealthy: boolean = true;
+const defaultEditMode: typeEditMode = {
+  isShowForm: false,
+  isEditMode: false,
+};
 const listPetSlice = createSlice({
   name: "listPet",
   initialState: defaultListValue,
@@ -46,6 +55,25 @@ const showPetHealthySlice = createSlice({
   },
 });
 
+const editModeSlice = createSlice({
+  name: "editMode",
+  initialState: defaultEditMode,
+  reducers: {
+    showEditMode: (state, actions: typeActionsEditMode) => {
+      return {
+        isEditMode: actions.payload,
+        isShowForm: state.isShowForm,
+      };
+    },
+    showForm: (state, actions: typeActionsEditMode) => {
+      return {
+        isEditMode: state.isEditMode,
+        isShowForm: actions.payload,
+      };
+    },
+  },
+});
+
 // list pet
 export const { addPet, addListPet, deletePet } = listPetSlice.actions;
 export const listPetReducer = listPetSlice.reducer;
@@ -53,3 +81,7 @@ export const listPetReducer = listPetSlice.reducer;
 // show pet healthy
 export const { showPetHealthy } = showPetHealthySlice.actions;
 export const showPetHealthyReducer = showPetHealthySlice.reducer;
+
+// show pet healthy
+export const { showEditMode, showForm } = editModeSlice.actions;
+export const editModeReducer = editModeSlice.reducer;

@@ -1,13 +1,18 @@
 import style from "./ListItem.module.css";
 import { typePet } from "../../../store/type";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { deletePet as deletePetRedux } from "../../../store/slice";
+import { typeReduxState } from "../../../store/type";
 type propsType = typePet & {
   index: number;
+  edit?: true;
+  find?: boolean;
 };
 
 const ListItem = function (props: propsType) {
   const dispatch = useDispatch();
+  const editMode = useSelector((state: typeReduxState) => state.editMode);
+
   // kiem tra xem da chon checkbox chua
   const checkHandler = function (value: boolean) {
     if (value) {
@@ -84,11 +89,20 @@ const ListItem = function (props: propsType) {
       {checkHandler(props.sterilized)}
       <td>{calculateBMI(props.type)}</td>
       <td>{getDateLocal(props.dateAdd)}</td>
-      <td>
-        <button className={style["button--delete"]} onClick={deletePetHandler}>
-          Delete
-        </button>
-      </td>
+      {props.find ? null : (
+        <td>
+          {!editMode.isEditMode ? (
+            <button
+              className={style["button--delete"]}
+              onClick={deletePetHandler}
+            >
+              Delete
+            </button>
+          ) : (
+            <button className={style["button--edit"]}>Edit</button>
+          )}
+        </td>
+      )}
     </tr>
   );
 };

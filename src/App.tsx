@@ -1,17 +1,26 @@
-import { createBrowserRouter, RouterProvider, Outlet } from "react-router";
+import { createBrowserRouter, RouterProvider } from "react-router";
 import Navbar from "./component/Navbar/Navbar";
-import FormPage from "./Page/HomePage/HomePage";
+import HomePage from "./Page/HomePage/HomePage";
+import BreedPage from "./Page/BreedPage/BreedPage";
+import EditPage from "./Page/EditPage/EditPage";
+import SearchPage from "./Page/SearchPage/SearchPage";
 import store from "./store/store";
 import { Provider } from "react-redux";
+
 const router = createBrowserRouter([
   {
     path: "/",
-    element: (
-      <>
-        <Outlet></Outlet>
-      </>
-    ),
-    children: [{ index: true, element: <FormPage></FormPage> }],
+    element: <Navbar></Navbar>,
+    errorElement: <div>err</div>,
+    children: [
+      { index: true, element: <HomePage></HomePage> },
+      {
+        path: "/breed",
+        element: <BreedPage></BreedPage>,
+      },
+      { path: "edit", element: <EditPage /> },
+      { path: "search", element: <SearchPage /> },
+    ],
   },
 ]);
 function App() {

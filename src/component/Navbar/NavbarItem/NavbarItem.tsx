@@ -1,16 +1,21 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { IconDefinition } from "@fortawesome/free-solid-svg-icons";
 import style from "./NavbarItem.module.css";
+import { NavLink } from "react-router";
 type props = {
-  icon: IconDefinition;
+  iconClass: string;
   text: string;
+  to: string;
 };
 const NavbarItem = function (props: props) {
   return (
-    <div className={style.navbar__item}>
-      <FontAwesomeIcon icon={props.icon} />
-      <span>{props.text}</span>
-    </div>
+    <NavLink
+      to={props.to}
+      className={({ isActive }) => (isActive ? "active" : "")}
+    >
+      <li className={style.navbar__item}>
+        <i className={props.iconClass}></i>
+        <span>{props.text}</span>
+      </li>
+    </NavLink>
   );
 };
 

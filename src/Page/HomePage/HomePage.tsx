@@ -3,23 +3,23 @@ import Form from "../../component/Form/Form";
 import List from "../../component/List/List";
 import { typeReduxState } from "../../store/type";
 import style from "./HomePage.module.css";
-const FormPage = function () {
+import Cart from "../../component/Cart/Cart";
+const HomePage = function () {
   const listPets = useSelector((state: typeReduxState) => state.listPet);
   return (
     <div className={style.home__container}>
-      <header>
-        <h1>Pet Management</h1>
-      </header>
-      <Form></Form>
-      {listPets.length ? (
-        <div className={style.home__container__list}>
-          <List></List>
-        </div>
-      ) : (
-        []
-      )}
+      <Cart title={"Pet Management"}>
+        <Form></Form>
+        {listPets.length ? (
+          <div className={style.home__container__list}>
+            <List></List>
+          </div>
+        ) : (
+          []
+        )}
+      </Cart>
     </div>
   );
 };
 
-export default FormPage;
+export default HomePage;

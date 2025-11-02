@@ -25,4 +25,14 @@ select::-ms-expand {
 }
 button {
   cursor: pointer;
+  border: none;
+  border-radius: 5px !important;
+  height: 2rem;
+  padding: 5px 10px;
+  height: fit-content;
+  width: fit-content;
+}
+
+a {
+  text-decoration: none !important;
 }

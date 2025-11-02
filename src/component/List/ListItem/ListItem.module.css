@@ -30,9 +30,17 @@
 }
 .circle--green {
   background-color: green;
+  color: white;
 }
 .button--delete {
   background-color: red;
+  height: 2rem;
+  color: white;
+  border: none;
+  border-radius: 5px;
+}
+.button--edit {
+  background-color: #ffca2c;
   height: 2rem;
   color: white;
   border: none;

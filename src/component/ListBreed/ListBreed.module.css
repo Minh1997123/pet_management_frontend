@@ -1,0 +1,18 @@
+.list {
+  width: 60%;
+}
+.list thead {
+  border-bottom: 2px solid black;
+}
+
+.list tr {
+  display: grid;
+  grid-template-columns: 1fr 5fr repeat(2, 2fr);
+  padding-left: 10px;
+  min-height: 3rem;
+  height: fit-content;
+  align-items: center;
+}
+.list tbody tr:nth-child(odd) {
+  background-color: #ededed;
+}

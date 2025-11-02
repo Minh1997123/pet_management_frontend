@@ -1,10 +1,12 @@
 .navbar__item {
   display: flex;
-  flex-direction: column;
-  background-color: #7386d5;
-}
-.navbar__item span {
+  list-style: none;
   color: white;
+  padding-left: 10px;
 }
-
-/* #6D7FCC */
+.navbar__item > * {
+  margin: 5px;
+}
+.active {
+  background-color: #6d7fcc;
+}

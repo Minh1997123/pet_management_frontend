@@ -1,4 +1,52 @@
-.navbar {
+.sidebar {
   display: flex;
+  min-height: 100vh;
+}
+.sidebar nav {
+  min-width: 250px;
+  max-width: 250px;
+  background: #7386d5;
+  color: #fff;
+  transition: all 0.3s;
+}
+.header {
+  display: flex;
+  align-items: center;
+  padding: 20px;
+}
+.sidebar .active header {
+  justify-content: center;
+}
+
+h3 {
+  margin: 0px;
+}
+h3 > * {
+  margin-right: 5px;
+}
+.sidebar nav header,
+.sidebar nav li {
+  cursor: pointer;
+  height: 3rem;
+  margin-bottom: 2rem;
+}
+.sidebar .active {
+  min-width: 80px;
+  max-width: 80px;
+  text-align: center;
+}
+.sidebar .active li {
   flex-direction: column;
+  height: fit-content;
+  padding-left: 0px;
+}
+.sidebar ul {
+  padding: 0px;
+}
+.content {
+  flex-grow: 1;
+}
+.sidebar nav .header {
+  color: white;
+  background-color: #6d7fcc;
 }

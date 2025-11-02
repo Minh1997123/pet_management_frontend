@@ -2,6 +2,7 @@ export type typeFormInputItemProps = {};
 
 export type typePet = {
   id?: string;
+  _id?: string;
   name: string;
   age: number;
   type: string;
@@ -14,10 +15,14 @@ export type typePet = {
   sterilized: boolean;
   dateAdd: string;
 };
-
+export type typeEditMode = {
+  isShowForm: boolean;
+  isEditMode: boolean;
+};
 export type typeReduxState = {
   listPet: typePet[];
   showPetHealthy: boolean;
+  editMode: typeEditMode;
 };
 
 export type typeDataSocketIO = {

@@ -5,7 +5,9 @@ import { typeReduxState, typeDataSocketIO } from "../../store/type";
 import { useState, useEffect } from "react";
 import openSocket from "socket.io-client";
 
-const List = function () {
+type typeProps = { find?: true };
+
+const List = function (props: typeProps) {
   const listPets = useSelector((state: typeReduxState) => state.listPet);
   const showPetHealthy = useSelector(
     (state: typeReduxState) => state.showPetHealthy
@@ -54,7 +56,7 @@ const List = function () {
           <th>Sterilized</th>
           <th>BMI</th>
           <th>Date Add</th>
-          <th>Action</th>
+          {props.find ? null : <th>Action</th>}
         </tr>
       </thead>
       <tbody className={style.list__body}>
@@ -92,6 +94,7 @@ const List = function () {
                 sterilized={sterilized}
                 dateAdd={dateAdd}
                 index={index}
+                find={props.find}
               ></ListItem>
             );
           }

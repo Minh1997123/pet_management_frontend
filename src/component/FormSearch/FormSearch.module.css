@@ -1,0 +1,22 @@
+.form {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  width: 40%;
+  gap: 15px;
+}
+
+.checkbox {
+  grid-column: 2/5;
+  display: flex;
+}
+.checkbox > * {
+  margin-right: 20px;
+  flex-grow: 1;
+}
+.checkbox input {
+  margin-right: 5px;
+}
+.button {
+  background-color: #0e6efe;
+  color: white;
+}

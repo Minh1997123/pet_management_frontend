@@ -8,7 +8,21 @@ import {
 import style from "./Form.module.css";
 import { typePet, typeReduxState } from "../../store/type";
 import { useEffect } from "react";
-const Form = function () {
+
+type typeProps = {
+  valueName?: string;
+  valueAge?: number;
+  valueType?: string;
+  valueWeight?: number;
+  valueLength?: number;
+  valueColor?: string;
+  valueBreed?: string;
+  vaccinated?: boolean;
+  dewarmed?: boolean;
+  sterilized?: boolean;
+  edit?: true;
+};
+const Form = function (props: typeProps) {
   const dispatch = useDispatch();
   const showPetHealthy = useSelector(
     (state: typeReduxState) => state.showPetHealthy
@@ -157,6 +171,7 @@ const Form = function () {
           type={typeInput.text}
           label="Pet Name"
           placeholder="Input Name"
+          defaultValue={props.valueName ?? ""}
         ></FormInputItem>
         <FormInputItem
           id="age"
@@ -164,7 +179,7 @@ const Form = function () {
           type={typeInput.number}
           label="Age"
           placeholder="Input Age"
-          defaultValue={1}
+          defaultValue={props.valueAge ?? 1}
           max={15}
         ></FormInputItem>
       </div>
@@ -176,6 +191,7 @@ const Form = function () {
           label="Type"
           placeholder="Input type"
           option={["Dog", "Cat"]}
+          defaultValue={props.valueType}
         ></FormInputItem>
       </div>
       <div
@@ -188,7 +204,7 @@ const Form = function () {
           label="Weight"
           placeholder="Input Weight"
           max={15}
-          defaultValue={1}
+          defaultValue={props.valueWeight ?? 1}
         ></FormInputItem>
         <FormInputItem
           id="length"
@@ -197,7 +213,7 @@ const Form = function () {
           label="Length"
           placeholder="Input Length"
           max={100}
-          defaultValue={1}
+          defaultValue={props.valueLength ?? 1}
         ></FormInputItem>
       </div>
       <div
@@ -208,7 +224,7 @@ const Form = function () {
           key="color"
           type={typeInput.color}
           label="Color"
-          defaultValue={"#ff0000"}
+          defaultValue={props.valueColor ?? "#ff0000"}
           placeholder="Input Color"
         ></FormInputItem>
         <FormInputItem
@@ -218,20 +234,36 @@ const Form = function () {
           label="Breed"
           placeholder="Select breed"
           option={["Golden Retriever", "Chihuahua", "Munchkin", "Abyssinian"]}
+          defaultValue={props.valueType}
         ></FormInputItem>
       </div>
       <div className={style.checkbox}>
         <div className={style.checkbox__items}>
           <div className={style.checkbox__item}>
-            <input type="checkbox" id="vaccinated" name="vaccinated" />
+            <input
+              type="checkbox"
+              id="vaccinated"
+              name="vaccinated"
+              checked={props.vaccinated}
+            />
             <label htmlFor="vaccinated">Vaccinated</label>
           </div>
           <div className={style.checkbox__item}>
-            <input type="checkbox" id="dewormed" name="dewormed" />
+            <input
+              type="checkbox"
+              id="dewormed"
+              name="dewormed"
+              checked={props.dewarmed}
+            />
             <label htmlFor="dewormed">Dewormed</label>
           </div>
           <div className={style.checkbox__item}>
-            <input type="checkbox" id="sterilized" name="sterilized" />
+            <input
+              type="checkbox"
+              id="sterilized"
+              name="sterilized"
+              checked={props.sterilized}
+            />
             <label htmlFor="sterilized">Sterilized</label>
           </div>
         </div>
@@ -240,13 +272,15 @@ const Form = function () {
         <button className={style["form__button--submit"]} type="submit">
           Submit
         </button>
-        <button
-          className={style["form__button--show"]}
-          type="button"
-          onClick={showPetHealthyHandler}
-        >
-          {showPetHealthy ? "Show Healthy Pet" : "Show All Pet"}
-        </button>
+        {!props.edit && (
+          <button
+            className={style["form__button--show"]}
+            type="button"
+            onClick={showPetHealthyHandler}
+          >
+            {showPetHealthy ? "Show Healthy Pet" : "Show All Pet"}
+          </button>
+        )}
       </div>
     </form>
   );

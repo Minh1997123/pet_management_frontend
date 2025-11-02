@@ -9,10 +9,11 @@ type propsType = {
   id: string;
   type: typeInput;
   label: string;
-  placeholder: string;
+  placeholder?: string;
   option?: string[];
   max?: number;
   defaultValue?: number | string;
+  className?: string;
 };
 const FormInputItem = function (props: propsType): React.JSX.Element {
   return (
